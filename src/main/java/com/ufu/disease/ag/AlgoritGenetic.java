@@ -26,6 +26,10 @@ public class AlgoritGenetic {
 	}
 	
 	public static void main(String[] args) {
-		createPopulation();
+		List<Chromossomo> popupalcao = createPopulation();
+		for(Chromossomo c: popupalcao) {
+			Fitness f = new Fitness();
+			f.calculateFitness(c);
+		}
 	}
 }
