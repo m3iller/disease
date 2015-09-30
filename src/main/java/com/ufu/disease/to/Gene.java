@@ -12,9 +12,9 @@ public class Gene {
 		super();
 	}
 	
-	public Gene(Random random, int min, int max){
+	public Gene(Random random, int max, int min){
 		weigth = Float.valueOf(String.format("%.2f", random.nextFloat()).replace(",", "."));
-		value = random.nextInt((min - max) + 1) + max;
+		value = random.nextInt((max - min) + 1) + min;
 		operator = Operator.getRandom();
 	}
 	

@@ -9,24 +9,44 @@ import com.ufu.disease.to.Gene;
 
 public class Fitness {
 
-	private static Float threshold = 0.3f;
+	private static Float threshold = 0.7f;
 
 	public Fitness() {
 	}
 
-	public void calculateFitness(Chromossomo chromoAleatorio) {
+	public void calculateFitness(Chromossomo chromoAleatorio, Integer classAG) {
 		DermatologyDAO dao = new DermatologyDAO();
 		List<Chromossomo> listChromosso = dao.searchDermtology(null, null);
+
+		int truePositive = 1;
+		int falsePositive = 1;
+		int falseNegative = 1;
+		int trueNegative = 1;
 
 		for (Chromossomo c : listChromosso) {
 			// verifica se atributos sao equivalentes
 			boolean compareValues = functionCompare(c, chromoAleatorio);
 			if (compareValues) {
-				System.out.println(true);
+				if (c.getClassDisease().getValue() == classAG) {
+					++truePositive;
+				} else {
+					++falsePositive;
+				}
 			} else {
-				System.out.println(false);
+				if (c.getClassDisease().getValue() == classAG) {
+					++falseNegative;
+				} else {
+					++trueNegative;
+				}
 			}
 		}
+		
+		Float se  = truePositive / Float.valueOf((truePositive + falseNegative));
+		Float sp = trueNegative / Float.valueOf((trueNegative + falsePositive));
+		
+		Float fitness = se * sp;
+		chromoAleatorio.setFitness(fitness);
+		System.out.println(chromoAleatorio.getFitness());
 	}
 
 	public boolean functionCompare(Chromossomo chromoOriginal,

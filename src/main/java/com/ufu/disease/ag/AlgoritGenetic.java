@@ -27,9 +27,15 @@ public class AlgoritGenetic {
 	
 	public static void main(String[] args) {
 		List<Chromossomo> popupalcao = createPopulation();
+		
+		for(int i=1; i<=6; i++) {
+		System.out.println("Classe " + i);
+		
 		for(Chromossomo c: popupalcao) {
 			Fitness f = new Fitness();
-			f.calculateFitness(c);
+			//f.calculateFitness(c,1);
+				f.calculateFitness(c,i);
+			}
 		}
 	}
 }

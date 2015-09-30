@@ -2,7 +2,7 @@ package com.ufu.disease.to;
 
 public enum Operator {
 
-    IGUAL("="), DIFERENTE("!="), MAIOR(">") , MENOR("<");
+    IGUAL("="), DIFERENTE("!="), MAIOR(">=") , MENOR("<");
 
     private String op;
 

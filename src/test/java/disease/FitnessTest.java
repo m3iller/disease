@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import com.ufu.disease.ag.Fitness;
 import com.ufu.disease.to.Chromossomo;
+import com.ufu.disease.to.Operator;
 
 public class FitnessTest {
 
@@ -14,9 +15,13 @@ public class FitnessTest {
 		Random r = new Random();
 		Chromossomo c = Chromossomo.buildChromossome(r);
 		
-		Fitness fit = new Fitness();
-		fit.calculateFitness(c);
+		//Chromossomo c = new Chromossomo();
+		c.getBandLike().setValue(2);
+		c.getBandLike().setWeigth(0.9f);
+		c.getBandLike().setOperator(Operator.MAIOR);
 		
+		Fitness fit = new Fitness();
+		fit.calculateFitness(c,3);
 	}
 	
 }

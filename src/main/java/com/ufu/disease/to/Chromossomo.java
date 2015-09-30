@@ -83,6 +83,8 @@ public class Chromossomo {
 	private Gene age;
 	private Gene classDisease;
 	
+	private Float fitness;
+	
 	public final Gene getIdDermatology() {
 		return idDermatology;
 	}
@@ -151,6 +153,12 @@ public class Chromossomo {
 	}
 	public final Gene getFamilyHistory() {
 		return familyHistory;
+	}
+	public Float getFitness() {
+		return fitness;
+	}
+	public void setFitness(Float fitness) {
+		this.fitness = fitness;
 	}
 	public final void setFamilyHistory(Gene familyHistory) {
 		this.familyHistory = familyHistory;
