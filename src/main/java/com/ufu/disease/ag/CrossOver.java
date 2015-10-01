@@ -14,27 +14,30 @@ public class CrossOver {
 	public Chromossomo crossOver(Chromossomo c1, Chromossomo c2) throws IllegalArgumentException, IllegalAccessException {
 		
 		Chromossomo novo = new Chromossomo();
+		novo.getIdDermatology().setValue(AlgoritGenetic.id++);
+		//System.out.println("idcriado:" +AlgoritGenetic.id);
 		
 		Random r = new Random();
-		int p1 = r.nextInt((33 - 2) + 1) + 2;
-		int p2 = r.nextInt((33 - 2) + 1) + 2;
-		
 		Field[] fieldsChromoOne = c1.getClass().getDeclaredFields();
-		Field[] fieldsChromoTwo = c2.getClass().getDeclaredFields();
-		Field[] fieldsNovo = novo.getClass().getDeclaredFields();
-		
+		int diff = -1;
 		List<Integer> points = new ArrayList<Integer>();
-		points.add(p1);
-		points.add(p2);
-		Collections.sort(points);
+		while(diff <=1) {
+			int p1 = r.nextInt((33 - 2) + 1) + 2;
+			int p2 = r.nextInt((33 - 2) + 1) + 2;
+			points = new ArrayList<Integer>();
+			points.add(p1);
+			points.add(p2);
+			Collections.sort(points);
+			diff = points.get(1) - points.get(0);
+		}
 		
-		for(int i=2; i <= points.get(0); i++) {
+		for(int i=1; i <= points.get(0); i++) {
 			//System.out.println("primeiro : " + i);
 			Field f = fieldsChromoOne[i];
 			f.setAccessible(true);
 			Gene geneChromoOne = (Gene) f.get(c1);
 			
-			Field fNovo = fieldsNovo[i];
+			Field fNovo = fieldsChromoOne[i];
 			fNovo.setAccessible(true);
 			fNovo.set(novo, geneChromoOne);
 		}
@@ -45,18 +48,18 @@ public class CrossOver {
 			f.setAccessible(true);
 			Gene geneChromoOne = (Gene) f.get(c1);
 			
-			Field fNovo = fieldsNovo[i];
+			Field fNovo = fieldsChromoOne[i];
 			fNovo.setAccessible(true);
 			fNovo.set(novo, geneChromoOne);
 		}
 		
 		for(int i=points.get(0)+1; i < points.get(1); i++) {
 			//System.out.println("terceiro : " + i);
-			Field f = fieldsChromoTwo[i];
+			Field f = fieldsChromoOne[i];
 			f.setAccessible(true);
 			Gene geneChromoOne = (Gene) f.get(c2);
 			
-			Field fNovo = fieldsNovo[i];
+			Field fNovo = fieldsChromoOne[i];
 			fNovo.setAccessible(true);
 			fNovo.set(novo, geneChromoOne);
 		}

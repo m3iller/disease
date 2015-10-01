@@ -3,9 +3,10 @@ package com.ufu.disease.to;
 import java.util.List;
 import java.util.Random;
 
-public class Chromossomo {
+import com.ufu.disease.ag.AlgoritGenetic;
+
+public class Chromossomo {//implements Comparator<Chromossomo> {
 	
-	public static Integer id = 1000;
 	
 	public Chromossomo() {
 		this.idDermatology = new Gene();
@@ -154,12 +155,7 @@ public class Chromossomo {
 	public final Gene getFamilyHistory() {
 		return familyHistory;
 	}
-	public Float getFitness() {
-		return fitness;
-	}
-	public void setFitness(Float fitness) {
-		this.fitness = fitness;
-	}
+	
 	public final void setFamilyHistory(Gene familyHistory) {
 		this.familyHistory = familyHistory;
 	}
@@ -307,6 +303,12 @@ public class Chromossomo {
 	public final void setClassDisease(Gene classDisease) {
 		this.classDisease = classDisease;
 	}
+	public Float getFitness() {
+		return fitness;
+	}
+	public void setFitness(Float fitness) {
+		this.fitness = fitness;
+	}
 	
 	@Override
 	public int hashCode() {
@@ -338,7 +340,7 @@ public class Chromossomo {
 		Chromossomo c = new Chromossomo();
 		
 		c.idDermatology = new Gene(r,3,0);
-		c.idDermatology.setValue(id++);
+		c.idDermatology.setValue(AlgoritGenetic.id++);
 		c.erythema = new Gene(r,3,0);
 		c.scaling= new Gene(r,3,0);
 		c.definiteBorders= new Gene(r,3,0);
@@ -389,7 +391,11 @@ public class Chromossomo {
 		return " ID: " + idDermatology.getValue() +
 				" Peso: " + idDermatology.getWeigth() +
 				" Operador:" +  idDermatology.getOperator() + 
-				" Valor:" + idDermatology.getValue();
+				" Valor:" + idDermatology.getValue() +
+				" Fitness:" + this.getFitness();
 	}
 	
+//	public int compare(Chromossomo o1, Chromossomo o2) {
+//		return o2.getFitness().compareTo(o1.getFitness());
+//	}
 }

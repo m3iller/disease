@@ -15,6 +15,9 @@ public class Fitness {
 	}
 
 	public void calculateFitness(Chromossomo chromoAleatorio, Integer classAG) {
+		if(chromoAleatorio.getFitness() != null) {
+			return;
+		}
 		DermatologyDAO dao = new DermatologyDAO();
 		List<Chromossomo> listChromosso = dao.searchDermtology(null, null);
 
@@ -41,13 +44,18 @@ public class Fitness {
 			}
 		}
 		
-		Float se  = truePositive / Float.valueOf((truePositive + falseNegative));
-		Float sp = trueNegative / Float.valueOf((trueNegative + falsePositive));
+		Float se  = truePositive / 
+				Float.valueOf((truePositive + falseNegative));
+		Float sp = trueNegative / 
+				Float.valueOf((trueNegative + falsePositive));
 		
+		se = Float.valueOf(String.format("%.2f", se).replace(",", "."));
+		sp = Float.valueOf(String.format("%.2f", sp).replace(",", "."));
 		Float fitness = se * sp;
 		chromoAleatorio.setFitness(fitness);
-		System.out.println(chromoAleatorio.getFitness());
+		//System.out.println("calculo o fit" +chromoAleatorio);
 	}
+	
 
 	public boolean functionCompare(Chromossomo chromoOriginal,
 			Chromossomo chromoAleatory) {
