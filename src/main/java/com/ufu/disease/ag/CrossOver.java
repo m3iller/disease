@@ -19,6 +19,8 @@ public class CrossOver {
 		
 		Random r = new Random();
 		Field[] fieldsChromoOne = c1.getClass().getDeclaredFields();
+		Field[] fieldsChromoTwo = c2.getClass().getDeclaredFields();
+		
 		int diff = -1;
 		List<Integer> points = new ArrayList<Integer>();
 		while(diff <=1) {
@@ -55,11 +57,11 @@ public class CrossOver {
 		
 		for(int i=points.get(0)+1; i < points.get(1); i++) {
 			//System.out.println("terceiro : " + i);
-			Field f = fieldsChromoOne[i];
+			Field f = fieldsChromoTwo[i];
 			f.setAccessible(true);
 			Gene geneChromoOne = (Gene) f.get(c2);
-			
-			Field fNovo = fieldsChromoOne[i];
+			//System.out.println(geneChromoOne.toString());
+			Field fNovo = fieldsChromoTwo[i];
 			fNovo.setAccessible(true);
 			fNovo.set(novo, geneChromoOne);
 		}

@@ -36,4 +36,9 @@ public class Gene {
 	public final void setOperator(Operator operator) {
 		this.operator = operator;
 	}
+	
+	@Override
+	public String toString(){
+		return weigth + "|" + operator + "|" + value;
+	}
 }

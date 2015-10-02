@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import com.ufu.disease.ag.CrossOver;
 import com.ufu.disease.to.Chromossomo;
+import com.ufu.disease.to.Gene;
 
 public class CrossOverTeste {
 
@@ -18,7 +19,6 @@ public class CrossOverTeste {
 	
 		CrossOver cross= new CrossOver();
 		cross.crossOver(c1, c2);
-		
 	}
 	
 	@Test
@@ -28,12 +28,16 @@ public class CrossOverTeste {
 		
 		for (Field field : c.getClass().getDeclaredFields()) {
 		    field.setAccessible(true); // You might want to set modifier to public first.
-		    Object value = field.get(c); 
+		   Object o = field.get(c);
+		   if(o instanceof Gene) {
+			o = (Gene) o;   
+		    Gene value = (Gene) field.get(c); 
 		    if (value != null) {
-		        System.out.println(field.getName() + "=" + value);
+		        System.out.println(field.getName() + "|" + value.getValue() + "|"+ value.getOperator() +
+		        		"|"+value.getWeigth());
 		    }
+		   }
 		}
-		
 	}
 	
 }

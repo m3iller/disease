@@ -44,7 +44,7 @@ public class DermatologyDAO {
 		return r.nextInt((3 - 0) + 1) + 0;
 	}
 
-	public List<Chromossomo> searchDermtology(Integer idMin, Integer idMax) {
+	public List<Chromossomo> searchDermtology(Integer op, Integer where) {
 
 		try {
 			List<Chromossomo> listDerm = new ArrayList<Chromossomo>();

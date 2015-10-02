@@ -10,7 +10,7 @@ import com.ufu.disease.to.ChromossomoComparator;
 
 public class AlgoritGenetic {
 
-	private static Integer generation = 50;
+	private static Integer generation = 100;
 	private static Integer elementos = 50;
 	private static Integer sizeTournament =3;
 	public static Integer id = 1000;
@@ -33,8 +33,9 @@ public class AlgoritGenetic {
 		Long init = 0l;
 		Long end = 0l;
 		for (int i = 1; i <= 6; i++) {
+			Float tempo = ((end - init) / 1000f);
 			init = System.currentTimeMillis();
-			System.out.println("Tempo Execucao:" + ((end - init) / 1000));
+			System.out.println("Tempo Execucao:" + tempo);
 			List<Chromossomo> popupalcao = createPopulation();
 			for (int j = 1; j <= generation; j++) {
 				//System.out.println("Classe " + i);
@@ -76,6 +77,7 @@ public class AlgoritGenetic {
 			}
 			
 			System.out.println("Classe: " + i);
+			Chromossomo.printChromossomo(popupalcao.get(0));
 			System.out.println(popupalcao);
 			end = System.currentTimeMillis();
 		}

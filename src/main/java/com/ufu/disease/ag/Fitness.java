@@ -9,7 +9,7 @@ import com.ufu.disease.to.Gene;
 
 public class Fitness {
 
-	private static Float threshold = 0.7f;
+	public static Float threshold = 0.80f;
 
 	public Fitness() {
 	}
@@ -284,7 +284,7 @@ public class Fitness {
 			if (compareElements == false)
 				return false;
 		}
-
+	
 		return compareElements;
 	}
 
