@@ -1,42 +1,34 @@
 package com.ufu.disease.ag;
 
-import java.util.List;
-
 import com.udojava.evalex.Expression;
-import com.ufu.disease.dao.DermatologyDAO;
 import com.ufu.disease.to.Chromossomo;
 import com.ufu.disease.to.Gene;
 
 public class Fitness {
 
-	public static Float threshold = 0.80f;
+	public static Float threshold = 0.85f;
 
 	public Fitness() {
 	}
 
 	public void calculateFitness(Chromossomo chromoAleatorio, Integer classAG) {
-		if(chromoAleatorio.getFitness() != null) {
-			return;
-		}
-		DermatologyDAO dao = new DermatologyDAO();
-		List<Chromossomo> listChromosso = dao.searchDermtology(null, null);
-
+		
 		int truePositive = 1;
 		int falsePositive = 1;
 		int falseNegative = 1;
 		int trueNegative = 1;
 
-		for (Chromossomo c : listChromosso) {
+		for (Chromossomo c : AlgoritGenetic.trainingDiseae) {
 			// verifica se atributos sao equivalentes
 			boolean compareValues = functionCompare(c, chromoAleatorio);
 			if (compareValues) {
-				if (c.getClassDisease().getValue() == classAG) {
+				if (c.getClassDisease().getValue().intValue() == classAG.intValue()) {
 					++truePositive;
 				} else {
 					++falsePositive;
 				}
 			} else {
-				if (c.getClassDisease().getValue() == classAG) {
+				if (c.getClassDisease().getValue().intValue() == classAG.intValue()) {
 					++falseNegative;
 				} else {
 					++trueNegative;
@@ -53,7 +45,7 @@ public class Fitness {
 		sp = Float.valueOf(String.format("%.2f", sp).replace(",", "."));
 		Float fitness = se * sp;
 		chromoAleatorio.setFitness(fitness);
-		//System.out.println("calculo o fit" +chromoAleatorio);
+		//Chromossomo.printChromossomo(chromoAleatorio);
 	}
 	
 

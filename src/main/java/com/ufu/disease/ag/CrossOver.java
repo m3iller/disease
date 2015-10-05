@@ -24,8 +24,8 @@ public class CrossOver {
 		int diff = -1;
 		List<Integer> points = new ArrayList<Integer>();
 		while(diff <=1) {
-			int p1 = r.nextInt((33 - 2) + 1) + 2;
-			int p2 = r.nextInt((33 - 2) + 1) + 2;
+			int p1 = r.nextInt((34 - 1) + 1) + 1;
+			int p2 = r.nextInt((34 - 1) + 1) + 1;
 			points = new ArrayList<Integer>();
 			points.add(p1);
 			points.add(p2);
@@ -41,7 +41,12 @@ public class CrossOver {
 			
 			Field fNovo = fieldsChromoOne[i];
 			fNovo.setAccessible(true);
-			fNovo.set(novo, geneChromoOne);
+			Gene g = new Gene();
+			g.setOperator(geneChromoOne.getOperator());
+			g.setValue(geneChromoOne.getValue());
+			g.setWeigth(geneChromoOne.getWeigth());
+			
+			fNovo.set(novo, g);
 		}
 		
 		for(int i=35; i >= points.get(1); i--) {
@@ -52,7 +57,11 @@ public class CrossOver {
 			
 			Field fNovo = fieldsChromoOne[i];
 			fNovo.setAccessible(true);
-			fNovo.set(novo, geneChromoOne);
+			Gene g = new Gene();
+			g.setOperator(geneChromoOne.getOperator());
+			g.setValue(geneChromoOne.getValue());
+			g.setWeigth(geneChromoOne.getWeigth());
+			fNovo.set(novo, g);
 		}
 		
 		for(int i=points.get(0)+1; i < points.get(1); i++) {
@@ -63,7 +72,11 @@ public class CrossOver {
 			//System.out.println(geneChromoOne.toString());
 			Field fNovo = fieldsChromoTwo[i];
 			fNovo.setAccessible(true);
-			fNovo.set(novo, geneChromoOne);
+			Gene g = new Gene();
+			g.setOperator(geneChromoOne.getOperator());
+			g.setValue(geneChromoOne.getValue());
+			g.setWeigth(geneChromoOne.getWeigth());
+			fNovo.set(novo, g);
 		}
 		
 		return novo;

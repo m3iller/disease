@@ -9,16 +9,10 @@ import com.ufu.disease.to.Chromossomo;
 
 public class DermatologyDAOTest {
 
-	//private static DermatologyDAO demDAO = new DermatologyDAO();
-
 	@Test
 	public void searchTeste() {
-
 		DermatologyDAO demDAO = new DermatologyDAO();
-		List<Chromossomo> list = demDAO.searchDermtology(0, 0);
-
+		List<Chromossomo> list = demDAO.searchDermtology(10, 1);
 		org.junit.Assert.assertNotNull(list);
-
 	}
-
 }

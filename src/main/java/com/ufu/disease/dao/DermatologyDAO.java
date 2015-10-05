@@ -44,14 +44,17 @@ public class DermatologyDAO {
 		return r.nextInt((3 - 0) + 1) + 0;
 	}
 
-	public List<Chromossomo> searchDermtology(Integer op, Integer where) {
+	public List<Chromossomo> searchDermtology(Integer top, Integer claz) {
 
 		try {
 			List<Chromossomo> listDerm = new ArrayList<Chromossomo>();
 
 			StringBuilder sq = new StringBuilder();
 			sq.append(" select * from tb_dermatology ");
-
+			if(top != null && claz != null) {
+				sq.append(String.format(" where class_disease = %d", claz));
+				sq.append(String.format(" limit %d", top));
+			}
 			Connection con = ConnectionUtil.connect();
 			Statement statement = con.createStatement();
 			ResultSet rs = statement.executeQuery(sq.toString());

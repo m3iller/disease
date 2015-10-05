@@ -7,8 +7,7 @@ import java.util.Random;
 import com.ufu.disease.ag.AlgoritGenetic;
 import com.ufu.disease.ag.Fitness;
 
-public class Chromossomo {//implements Comparator<Chromossomo> {
-	
+public class Chromossomo {
 	
 	public Chromossomo() {
 		this.idDermatology = new Gene();
@@ -341,7 +340,7 @@ public class Chromossomo {//implements Comparator<Chromossomo> {
 	public static Chromossomo buildChromossome(Random r) {
 		Chromossomo c = new Chromossomo();
 		
-		c.idDermatology = new Gene(r,3,0);
+		c.idDermatology = new Gene();
 		c.idDermatology.setValue(AlgoritGenetic.id++);
 		c.erythema = new Gene(r,3,0);
 		c.scaling= new Gene(r,3,0);
@@ -377,7 +376,7 @@ public class Chromossomo {//implements Comparator<Chromossomo> {
 		c.inflammatory= new Gene(r,3,0);
 		c.bandLike= new Gene(r,3,0);
 		c.age= new Gene(r,79,0);
-		c.classDisease= new Gene(r,3,0);
+		c.classDisease= new Gene(r,6,1);
 		
 		return c;
 	}
@@ -397,29 +396,36 @@ public class Chromossomo {//implements Comparator<Chromossomo> {
 				" Fitness:" + this.getFitness();
 	}
 	
-	
 	public static void printChromossomo(Chromossomo c) {
 		try {
 			System.out.println("id: " + c.getIdDermatology().getValue());
 			for (Field field : c.getClass().getDeclaredFields()) {
-			    field.setAccessible(true); // You might want to set modifier to public first.
-			   Object o = field.get(c);
-			   if(o instanceof Gene) {
-				o = (Gene) o;   
-			    Gene value = (Gene) field.get(c); 
-			    if (value != null && value.getWeigth() != null &&  value.getWeigth() >=  Fitness.threshold) {
-			        System.out.println(field.getName() + "|" + value.getValue() + "|"+ value.getOperator() +
-			        		"|"+value.getWeigth());
-			    }
-			   }
+				field.setAccessible(true); // You might want to set modifier to
+											// public first.
+				Object o = field.get(c);
+				if (o instanceof Gene) {
+					o = (Gene) o;
+					Gene value = (Gene) field.get(c);
+					if (value != null && value.getWeigth() != null
+							&& value.getWeigth() >= Fitness.threshold) {
+						if (field.getName().equals("idDermatology")) {
+							System.out.println(field.getName() + " "
+									+ value.getOperator() + " "
+									+ value.getValue() + "| "
+									+ value.getWeigth());
+						} else {
+							System.out.println(field.getName() + " "
+									+ value.getOperator().getNumVal() + " "
+									+ value.getValue() + "| "
+									+ value.getWeigth());
+						}
+					}
+				}
 			}
+			System.out.println("Fit:" + c.getFitness());
 			System.out.println("\n ");
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
 	}
-	
-//	public int compare(Chromossomo o1, Chromossomo o2) {
-//		return o2.getFitness().compareTo(o1.getFitness());
-//	}
 }

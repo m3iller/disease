@@ -11,7 +11,7 @@ import com.ufu.disease.to.Operator;
 
 public class FitnessTest {
 
-	@Test
+	//@Test
 	public void calculateFitness(){
 		Random r = new Random();
 		Chromossomo c = Chromossomo.buildChromossome(r);
