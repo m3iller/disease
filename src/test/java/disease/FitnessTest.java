@@ -5,13 +5,14 @@ import java.util.Random;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.ufu.disease.ag.AlgoritGenetic;
 import com.ufu.disease.ag.Fitness;
 import com.ufu.disease.to.Chromossomo;
 import com.ufu.disease.to.Operator;
 
 public class FitnessTest {
 
-	//@Test
+	@Test
 	public void calculateFitness(){
 		Random r = new Random();
 		Chromossomo c = Chromossomo.buildChromossome(r);
@@ -22,20 +23,22 @@ public class FitnessTest {
 //		c.getBandLike().setWeigth(0.9f);
 //		c.getBandLike().setOperator(Operator.MAIOR);
 		
-		c.getMelaninIncontinence().setValue(1);
+		c.getPolygonalPapules().setValue(3);
+		c.getPolygonalPapules().setWeigth(0.9f);
+		c.getPolygonalPapules().setOperator(Operator.DIFERENTE);
+		
+		c.getMelaninIncontinence().setValue(0);
 		c.getMelaninIncontinence().setWeigth(0.9f);
-		c.getMelaninIncontinence().setOperator(Operator.MENOR);
+		c.getMelaninIncontinence().setOperator(Operator.IGUAL);
 		
-		c.getFibrosis().setValue(0);
-		c.getFibrosis().setWeigth(0.9f);
-		c.getFibrosis().setOperator(Operator.DIFERENTE);
+		c.getThinning().setValue(0);
+		c.getThinning().setWeigth(0.9f);
+		c.getThinning().setOperator(Operator.IGUAL);
 		
-		c.getMunroIcroabcess().setValue(0);;
-		c.getMunroIcroabcess().setWeigth(0.9f);
-		c.getMunroIcroabcess().setOperator(Operator.IGUAL);
+		AlgoritGenetic.initTesteList();
 		
 		Fitness fit = new Fitness();
-		fit.calculateFitness(c,5);
+		//fit.calculateFitness(c,1);
 		
 		Assert.assertNotNull(c);
 	}

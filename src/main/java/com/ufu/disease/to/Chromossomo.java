@@ -10,7 +10,6 @@ import com.ufu.disease.ag.Fitness;
 public class Chromossomo {
 	
 	public Chromossomo() {
-		this.idDermatology = new Gene();
 		this.erythema = new Gene();
 		this.scaling= new Gene();
 		this.definiteBorders= new Gene();
@@ -48,7 +47,7 @@ public class Chromossomo {
 		this.classDisease= new Gene();
 	}
 
-	private Gene idDermatology;
+	private Integer idDermatology;
 	private Gene erythema;
 	private Gene scaling;
 	private Gene definiteBorders;
@@ -87,10 +86,10 @@ public class Chromossomo {
 	
 	private Float fitness;
 	
-	public final Gene getIdDermatology() {
+	public final Integer getIdDermatology() {
 		return idDermatology;
 	}
-	public final void setIdDermatology(Gene idDermatology) {
+	public final void setIdDermatology(Integer idDermatology) {
 		this.idDermatology = idDermatology;
 	}
 	public final Gene getErythema() {
@@ -311,12 +310,14 @@ public class Chromossomo {
 		this.fitness = fitness;
 	}
 	
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((idDermatology.getValue() == null) ? 0 : idDermatology.getValue().hashCode());
+				+ ((idDermatology == null) ? 0 : idDermatology.hashCode());
 		return result;
 	}
 	@Override
@@ -328,20 +329,17 @@ public class Chromossomo {
 		if (getClass() != obj.getClass())
 			return false;
 		Chromossomo other = (Chromossomo) obj;
-		if (idDermatology.getValue() == null) {
-			if (other.idDermatology.getValue() != null)
+		if (idDermatology == null) {
+			if (other.idDermatology != null)
 				return false;
-		} else if (!idDermatology.getValue().equals(other.idDermatology.getValue()))
+		} else if (!idDermatology.equals(other.idDermatology))
 			return false;
 		return true;
 	}
-	
-	
 	public static Chromossomo buildChromossome(Random r) {
 		Chromossomo c = new Chromossomo();
 		
-		c.idDermatology = new Gene();
-		c.idDermatology.setValue(AlgoritGenetic.id++);
+		c.idDermatology = new Integer(AlgoritGenetic.id++);
 		c.erythema = new Gene(r,3,0);
 		c.scaling= new Gene(r,3,0);
 		c.definiteBorders= new Gene(r,3,0);
@@ -389,16 +387,13 @@ public class Chromossomo {
 	
 	@Override
 	public String toString() {
-		return " ID: " + idDermatology.getValue() +
-				" Peso: " + idDermatology.getWeigth() +
-				" Operador:" +  idDermatology.getOperator() + 
-				" Valor:" + idDermatology.getValue() +
+		return " ID: " + idDermatology +
 				" Fitness:" + this.getFitness();
 	}
 	
 	public static void printChromossomo(Chromossomo c) {
 		try {
-			System.out.println("id: " + c.getIdDermatology().getValue());
+			System.out.println("id: " + c.getIdDermatology());
 			for (Field field : c.getClass().getDeclaredFields()) {
 				field.setAccessible(true); // You might want to set modifier to
 											// public first.

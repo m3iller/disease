@@ -1,24 +1,26 @@
 package com.ufu.disease.ag;
 
+import java.util.List;
+
 import com.udojava.evalex.Expression;
 import com.ufu.disease.to.Chromossomo;
 import com.ufu.disease.to.Gene;
 
 public class Fitness {
 
-	public static Float threshold = 0.85f;
+	public static Float threshold = 0.81f;
 
 	public Fitness() {
 	}
 
-	public void calculateFitness(Chromossomo chromoAleatorio, Integer classAG) {
+	public void calculateFitness(Chromossomo chromoAleatorio, Integer classAG, List<Chromossomo> trainingDisease) {
 		
-		int truePositive = 1;
-		int falsePositive = 1;
-		int falseNegative = 1;
-		int trueNegative = 1;
+		int truePositive = 0;
+		int falsePositive = 0;
+		int falseNegative = 0;
+		int trueNegative = 0;
 
-		for (Chromossomo c : AlgoritGenetic.trainingDiseae) {
+		for (Chromossomo c : trainingDisease) {
 			// verifica se atributos sao equivalentes
 			boolean compareValues = functionCompare(c, chromoAleatorio);
 			if (compareValues) {
@@ -44,10 +46,12 @@ public class Fitness {
 		se = Float.valueOf(String.format("%.2f", se).replace(",", "."));
 		sp = Float.valueOf(String.format("%.2f", sp).replace(",", "."));
 		Float fitness = se * sp;
+
+		if(fitness == 0) {
+			fitness = 0.01f;
+		}
 		chromoAleatorio.setFitness(fitness);
-		//Chromossomo.printChromossomo(chromoAleatorio);
 	}
-	
 
 	public boolean functionCompare(Chromossomo chromoOriginal,
 			Chromossomo chromoAleatory) {

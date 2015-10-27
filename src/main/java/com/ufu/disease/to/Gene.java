@@ -13,7 +13,7 @@ public class Gene {
 	}
 	
 	public Gene(Random random, int max, int min){
-		weigth = Float.valueOf(String.format("%.2f", random.nextFloat()).replace(",", "."));
+		weigth = Float.valueOf(String.format("%.1f", random.nextFloat()).replace(",", "."));
 		value = random.nextInt((max - min) + 1) + min;
 		operator = Operator.getRandom();
 	}

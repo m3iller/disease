@@ -14,7 +14,8 @@ public class CrossOver {
 	public Chromossomo crossOver(Chromossomo c1, Chromossomo c2) throws IllegalArgumentException, IllegalAccessException {
 		
 		Chromossomo novo = new Chromossomo();
-		novo.getIdDermatology().setValue(AlgoritGenetic.id++);
+		novo.setIdDermatology(AlgoritGenetic.id++);
+		
 		//System.out.println("idcriado:" +AlgoritGenetic.id);
 		
 		Random r = new Random();
@@ -31,6 +32,7 @@ public class CrossOver {
 			points.add(p2);
 			Collections.sort(points);
 			diff = points.get(1) - points.get(0);
+			
 		}
 		
 		for(int i=1; i <= points.get(0); i++) {
@@ -47,6 +49,7 @@ public class CrossOver {
 			g.setWeigth(geneChromoOne.getWeigth());
 			
 			fNovo.set(novo, g);
+			f.setAccessible(false);
 		}
 		
 		for(int i=35; i >= points.get(1); i--) {
@@ -62,6 +65,7 @@ public class CrossOver {
 			g.setValue(geneChromoOne.getValue());
 			g.setWeigth(geneChromoOne.getWeigth());
 			fNovo.set(novo, g);
+			f.setAccessible(false);
 		}
 		
 		for(int i=points.get(0)+1; i < points.get(1); i++) {
@@ -77,8 +81,11 @@ public class CrossOver {
 			g.setValue(geneChromoOne.getValue());
 			g.setWeigth(geneChromoOne.getWeigth());
 			fNovo.set(novo, g);
+			f.setAccessible(false);
 		}
 		
+		//Fitness f = new Fitness();
+		//f.calculateFitness(novo, 1);
 		return novo;
 	}
 	

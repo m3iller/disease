@@ -14,7 +14,7 @@ import com.ufu.disease.to.Operator;
 
 public class TournamentStocastic {
 
-	public Chromossomo tournamentStocastic(Float maxFitness,List<Chromossomo> populacao, int size){
+	public List<Chromossomo> tournamentStocastic(Float maxFitness,List<Chromossomo> populacao, int size){
 			List<Chromossomo> chromoSelected = new ArrayList<Chromossomo>();
 			for(int i=1;i<=size;i++) {
 				Float tempSum = 0.0f;
@@ -37,7 +37,7 @@ public class TournamentStocastic {
 			}
 			
 			Collections.sort(chromoSelected, new ChromossomoComparator());
-			return chromoSelected.get(0);
+			return chromoSelected;
 	}
 	
 	
@@ -48,34 +48,30 @@ public class TournamentStocastic {
 		for(int k=0;k <=vezes;k++) {
 		
 			List<Chromossomo> chromoSelected = new ArrayList<Chromossomo>();
+			List<Chromossomo> chromoSelected1 = tournamentStocastic(maxFitness, populacao, size);
+			List<Chromossomo> chromoSelected2 = tournamentStocastic(maxFitness, populacao, size);
 			
-			chromoSelected.add(tournamentStocastic(maxFitness, populacao, size));
-			chromoSelected.add(tournamentStocastic(maxFitness, populacao, size));
-			
+			if(chromoSelected1.size() >0 && chromoSelected1.get(0) != null
+					&& chromoSelected2.size()>1 && chromoSelected2.get(1) != null) {
+				
+			chromoSelected.add(chromoSelected1.get(0));
+			if(chromoSelected2.get(0).equals(chromoSelected1.get(0))) {
+				chromoSelected.add(chromoSelected2.get(1));
+			} else {
+				chromoSelected.add(chromoSelected2.get(0));
+			}
 			CrossOver cross =new CrossOver();
 			
 			try {
 				
 				Chromossomo c1 =  cross.crossOver(chromoSelected.get(0), chromoSelected.get(1));
 				Chromossomo c2 =  cross.crossOver(chromoSelected.get(1), chromoSelected.get(0));
-				Fitness f = new Fitness();
-				f.calculateFitness(c1, geracao);
-				f.calculateFitness(c2, geracao);
 				
-//				System.out.println(chromoSelected.get(0) + " | " +  chromoSelected.get(1));
-//				System.out.println(chromoSelected.get(0) + " | " +  chromoSelected.get(1));
-//				System.out.println(c1 + " | " +  chromoSelected.get(1));
-//				System.out.println(c2 + " | " +  chromoSelected.get(1));
-//				
 				torneiosElement.add(c1);
 				torneiosElement.add(c2);
 				
-				//Chromossomo.printChromossomo(c1);
-				//Chromossomo.printChromossomo(c2);
 				mutation(c1,30);
 				mutation(c2,30);
-				//Chromossomo.printChromossomo(c1);
-				//Chromossomo.printChromossomo(c2);
 				
 			} catch (IllegalArgumentException e) {
 				e.printStackTrace();
@@ -83,6 +79,9 @@ public class TournamentStocastic {
 				e.printStackTrace();
 			}
 		
+		} else {
+			System.out.println("tem gente nulo ai max fit:" + maxFitness);
+		}
 		}
 		return torneiosElement;
 	}
