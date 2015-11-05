@@ -25,6 +25,9 @@ public class AlgoritGenetic {
 	public static List<Chromossomo> classFive;
 	public static List<Chromossomo> classSix;
 	
+	public static List<Chromossomo> bests;
+	
+	
 	public void randomElements() {
 	}
 	
@@ -43,10 +46,13 @@ public class AlgoritGenetic {
 		Long end = 0l;
 		initTesteList();
 		createValidateList();
-		for (int i = 1; i <= 6; i++) {
-			Float tempo = ((end - init) / 1000f);
+		
+		for (int i = 6; i <= 6; i++) {
+			
+			bests = new ArrayList<Chromossomo>();
+			for(int k=0; k<=4 ; k++) {
+			
 			init = System.currentTimeMillis();
-			System.out.println("Tempo Execucao:" + tempo);
 			List<Chromossomo> popupalcao = createPopulation();
 			for (Chromossomo c : popupalcao) {
 				Fitness f = new Fitness();
@@ -84,10 +90,18 @@ public class AlgoritGenetic {
 				Collections.sort(popupalcao, new ChromossomoComparator());
 			}
 			
-			System.out.println("Classe: " + i);
-			Chromossomo.printChromossomo(popupalcao.get(0));
-			validateClass(popupalcao.get(0), i);
+			bests.add(popupalcao.get(0));
+			//Float tempo = ((System.currentTimeMillis() - init) / 1000f);
+			//System.out.println("Tempo Execucao:" + tempo);
+			
+			//Chromossomo.printChromossomo(popupalcao.get(0));
+			
 			end = System.currentTimeMillis();
+		 }
+		System.out.println("Classe: " + i);
+		Collections.sort(bests, new ChromossomoComparator());
+		Chromossomo.printChromossomo(bests.get(0));
+		validateClass(bests.get(0), i);
 		}
 	}
 	
@@ -116,7 +130,7 @@ public class AlgoritGenetic {
 		classThree = dao.searchDermtology(49, 3);
 		classFour = dao.searchDermtology(32, 4);
 		classFive = dao.searchDermtology(35, 5);
-		classSix = dao.searchDermtology(14, 6);
+		classSix = dao.searchDermtology(15, 6);
 		
 		trainingDiseae = new ArrayList<Chromossomo>();
 		

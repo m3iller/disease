@@ -392,32 +392,42 @@ public class Chromossomo {
 	}
 	
 	public static void printChromossomo(Chromossomo c) {
+		StringBuilder sb = new StringBuilder();
 		try {
-			System.out.println("id: " + c.getIdDermatology());
+			//System.out.println("id: " + c.getIdDermatology());
 			for (Field field : c.getClass().getDeclaredFields()) {
-				field.setAccessible(true); // You might want to set modifier to
-											// public first.
+				field.setAccessible(true); 
+											
 				Object o = field.get(c);
 				if (o instanceof Gene) {
+					
 					o = (Gene) o;
+					if (field.getName().equals("age") || field.getName().equals("classDisease")) {
+						continue;
+					}
 					Gene value = (Gene) field.get(c);
 					if (value != null && value.getWeigth() != null
 							&& value.getWeigth() >= Fitness.threshold) {
 						if (field.getName().equals("idDermatology")) {
-							System.out.println(field.getName() + " "
-									+ value.getOperator() + " "
-									+ value.getValue() + "| "
-									+ value.getWeigth());
+//							System.out.println(field.getName() + " "
+//									+ value.getOperator() + "  "
+//									+ value.getValue());
+							//sb.append(field.getName() + " " + value.getOperator() + "  " + value.getValue());
+							//sb.append(" | ");
+									
 						} else {
-							System.out.println(field.getName() + " "
-									+ value.getOperator().getNumVal() + " "
-									+ value.getValue() + "| "
-									+ value.getWeigth());
+//							System.out.println(field.getName() + " "
+//									+ value.getOperator().getNumVal() + "  "
+//									+ value.getValue());
+//							
+							sb.append(field.getName() + " " + value.getOperator().getNumVal() + "  " + value.getValue());
+							sb.append(" and ");
 						}
 					}
 				}
 			}
-			System.out.println("Fit:" + c.getFitness());
+			System.out.println(sb.toString());
+			System.out.println(" Fit:" + c.getFitness());
 			System.out.println("\n ");
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
